@@ -232,6 +232,8 @@ take_ip()
         fixed_ip=$(basename ${t})
 
         for srv in ${HA_SERVERS[*]}; do
+	    # Calling this method (re)starts the GRACE period in the server for 
+	    # state and locks for the named IP address.
             ssh_do ${srv} "dbus-send --print-reply --system --dest=org.ganesha.nfsd \
                           /org/ganesha/nfsd/admin org.ganesha.nfsd.admin.grace \
                           string:5:${fixed_ip}"
@@ -248,6 +250,8 @@ release_ip()
         fixed_ip=$(basename ${t})
 
         for srv in ${HA_SERVERS[*]}; do
+	    # Calling this method (re)starts the GRACE period in the server for 
+	    # state and locks for the named IP address.
             ssh_do ${srv} "dbus-send --print-reply --system --dest=org.ganesha.nfsd \
                           /org/ganesha/nfsd/admin org.ganesha.nfsd.admin.grace \
                           string:2:${fixed_ip}"
