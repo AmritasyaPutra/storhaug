@@ -106,7 +106,7 @@ determine_servers()
 	
 	# change internal field separator and restore at the end of this function
     local tmp_ifs=${IFS}
-    IFS='\n'
+    IFS=$'\n'
 	
     local num_servers=0
     if [ -s ${CTDB_NODES} ]; then
@@ -311,7 +311,8 @@ EOF
 ### Script execution begins here
 
 cmd=${1}; shift
-if [[ ${cmd} == *help || ${cmd} == "-h" ]]; then
+# No argument will get you the help
+if [[ ${cmd} == *help || ${cmd} == "-h" || -z ${cmd} ]]; then
     usage
     exit 0
 elif [[ ${cmd} == *status ]]; then
